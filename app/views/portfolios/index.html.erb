@@ -1,0 +1,8 @@
+<h1> Your Portfolio </h1>
+<p>  <%= link_to "New Portfolio", new_portfolio_path, class: "nav-link" %>
+
+<ul>
+    <%@portfolios.each do |portfolio|%>
+        <li> <%= link_to portfolio.name, portfolio_path(portfolio)%> </li>
+    <%end%>
+</ul>

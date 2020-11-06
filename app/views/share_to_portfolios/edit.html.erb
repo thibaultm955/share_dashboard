@@ -1,0 +1,9 @@
+<h1>Add a Share to the Portfolio <%=@portfolio.name%></h1>
+
+<h2> Add a new subscription </h2>
+
+<%= simple_form_for [@portfolio, @share_to_portfolio] do |f|%>
+  <%= f.input :price_objective, label: "Update the price objective" %>
+  <%= f.button :submit %>
+<% end %>
+

@@ -1,0 +1,35 @@
+<h1>Add a Share to the Portfolio <%=@portfolio.name%></h1>
+
+
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 offset-sm-4">
+      <div class="form-basic">
+
+        <h2> Add a new subscription </h2>
+
+        <div data-controller="counter">
+          <%= simple_form_for [@portfolio, @share] do |f|%>
+            <div class="form-group" >
+               <%= label :name, "Name"%>
+              <%= select_tag :name ,
+                                  options_from_collection_for_select(@share, "id", "name"),
+                                  include_blank: true,
+                                  data: { action: "software#fetchPlans" },
+                                  class: "form-control select2" %>
+              <%= f.submit "Add", class: "btn btn-primary" %>
+          <% end %>
+
+
+           
+                </div>
+               
+
+                
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

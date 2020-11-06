@@ -1,2 +1,11 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<div class="flex-center mt-4" data-controller="counters">
+  <div class="counter">
+    <span data-target="counter.count"><%= @counter %></span>
+  </div>
+  <input type="text" id="fname" name="fname" class="select2"><br>
+
+  <button class="btn btn-outline-secondary" data-action="click->counter#refresh">Refresh counter</button>
+</div>

@@ -1,0 +1,41 @@
+<h1> <%= @portfolio.name%> </h1>
+
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Variation</th>
+      <th scope="col">Price Objective</th>
+      <th class="text-center" scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% i = 0 %>
+    <% @shares.each do |share| %>
+        <%i += 1%>
+        <tr onclick="location.href='<%=share_url(share[4])%>'">
+            <th scope="row"><%=i%></th>
+            <td><%= share[0] %></td>
+            <td><%= share[1].share_price %> </td>
+            <td><%= share[1].variation %><%=share[1].currency == "EUR" ? "€" : "NOT DEFINED"%></td>
+            <td><%=  share[3] %></td>
+            <td>  
+                <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE%>
+                <%= link_to "Update Price Objective", edit_portfolio_share_to_portfolio_path(@portfolio, share[2])%>
+            </td> 
+        </tr>
+    <%end%>
+  </tbody>
+</table>
+
+
+<p> <%= link_to "Test", share_information_url(@portfolio) %> </p>
+<p> <%= link_to "New Portfolio", new_portfolio_path, class: "nav-link" %> </p>
+<p> <%= link_to "Update name portfolio", edit_portfolio_path(@portfolio)%> </p>
+
+<p> <%= link_to "Add a share", new_portfolio_share_to_portfolio_path(@portfolio)%> </p>
+
+<%= button_to "Delete the Portfolio", { action: "destroy", id: @portfolio.id }, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
