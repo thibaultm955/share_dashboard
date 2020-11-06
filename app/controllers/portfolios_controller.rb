@@ -12,7 +12,8 @@ class PortfoliosController < ApplicationController
         time = time.strftime("%Y-%m-%d")
         @share_to_portfolio.each do |share_portfolio|
             share = Share.find(share_portfolio.share_id)
-            @shares << [share.name, ShareInformation.where(date:time, share_id: share_portfolio.share_id)[0], share_portfolio.id, share_portfolio.price_objective, share.id]
+            # We want to extract the latest Share Information available in the DB
+            @shares << [share.name, ShareInformation.where(share_id: share_portfolio.share_id)[-1], share_portfolio.id, share_portfolio.price_objective, share.id]
         end
         @shares = @shares.sort
     end
