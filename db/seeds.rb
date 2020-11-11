@@ -151,20 +151,20 @@ urls.each do |url|
 
             values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url}
 
-            share = Share.new(:name => key, :sector => values[:sector], :country => values[:country], :currency => values[:currency], :mnemonic => values[:mnemonic], :market => values[:market], :industry => values[:industry], :description => values[:description])
+            share = Share.new(:name => key, :sector => values[name][:sector], :country => values[name][:country], :currency => values[name][:currency], :mnemonic => values[name][:mnemonic], :market => values[name][:market], :industry => values[name][:industry], :description => values[name][:description])
             share.save
             share = Share.where(:name => key)[0]
-            scrape_url = ScrapeUrl.new(:url => values[:url])
+            scrape_url = ScrapeUrl.new(:url => values[name][:url])
             scrape_url.share = share
             scrape_url.save
-            share_information = ShareInformation.new(:date => values[:date], :share_price => values[:share_price], :variation => values[:variation], :number_of_shares => values[:number_of_shares], :currency => values[:currency], :volume => values[:volume], :market_cap => values[:market_cap], :beta => values[:beta], :pe => values[:pe], :eps => values[:eps])
+            share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps])
             share_information.share = share
             share_information.save
         else
             share = Share.where(:name => name)[0]
             values[name]  = {:date => date_today}
             # check if information already uploaded
-            if share.share_informations.where(:date => values[:date]).ids.empty? == false    
+            if share.share_informations.where(:date => values[name][:date]).ids.empty? == false    
                 puts "hey baby"
             else
                 share = Share.where(:name => name)[0]
@@ -242,11 +242,13 @@ urls.each do |url|
                     description = link.content
                 end
                 values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url}
-
-                scrape_url = ScrapeUrl.new(:url => values[:url])
+                puts ""
+                puts values
+                puts ""
+                scrape_url = ScrapeUrl.new(:url => values[name][:url])
                 scrape_url.share = share
                 scrape_url.save
-                share_information = ShareInformation.new(:date => values[:date], :share_price => values[:share_price], :variation => values[:variation], :number_of_shares => values[:number_of_shares], :currency => values[:currency], :volume => values[:volume], :market_cap => values[:market_cap], :beta => values[:beta], :pe => values[:pe], :eps => values[:eps])
+                share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps])
                 share_information.share = share
                 share_information.save
             end

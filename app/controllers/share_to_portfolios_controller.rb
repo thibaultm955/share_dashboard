@@ -9,8 +9,16 @@ class ShareToPortfoliosController < ApplicationController
         @share_to_portfolio = ShareToPortfolio.new
         @shares = Share.all
         @share_names = []
-        @shares.each { |share| @share_names << share.name }
-        
+        @countries = []
+        @sectors = []
+        @shares.each do |share| 
+            @share_names << share.name
+            @countries << share.country
+            @sectors << share.sector
+        end
+        @countries = @countries.uniq.sort    
+        @sectors = @sectors.uniq.sort    
+        @share_names = @share_names.sort
     end
 
     def create
