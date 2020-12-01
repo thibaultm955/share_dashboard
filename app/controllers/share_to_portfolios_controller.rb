@@ -13,7 +13,7 @@ class ShareToPortfoliosController < ApplicationController
         @sectors = []
         @shares.each do |share| 
             @share_names << share.name
-            @countries << share.country
+            @countries << share.country_id
             @sectors << share.sector
         end
         @countries = @countries.uniq.sort    

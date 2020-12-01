@@ -7,5 +7,12 @@ Rails.application.routes.draw do
     resources :share_to_portfolios
   end
   resources :share_informations
+  
+  resources :countries do
+    resources :shares
+    get "select_shares", to: "shares#render_select_shares"
+  end
+
   resources :shares
+
 end

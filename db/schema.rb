@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_205218) do
+ActiveRecord::Schema.define(version: 2020_12_01_210121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "portfolios", force: :cascade do |t|
     t.string "name"
@@ -64,7 +70,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_205218) do
   create_table "shares", force: :cascade do |t|
     t.string "name"
     t.string "sector"
-    t.string "country"
+    t.string "country_id"
     t.string "currency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

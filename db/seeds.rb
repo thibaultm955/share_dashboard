@@ -257,6 +257,9 @@ urls.each do |url|
     sleep(5)
 end
 
+Country.save!(name: "Belgium")
+Country.save!(name: "France")
+Country.save!(name: "Norway")
 
 # puts hash_info
 
