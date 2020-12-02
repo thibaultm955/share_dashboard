@@ -18,35 +18,23 @@ class SharesController < ApplicationController
         @share_informations = @share.share_informations
     end
 
-
-    def render_select_shares
-        @country = Country.find(params[:country_id])
-        @shares = @country.shares
-        html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
-        render json: {html_string: html_string}
-    end
-
     def render_select_shares_sector
-        if params[:country_id] == nil
-            @sector = Sector.find(params[:sector_id])
-            @shares = @sector.shares
+        if params[:country_id] == "none" && params[:sector_id] == "none"
+            @shares = Share.all
             html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
             render json: {html_string: html_string}
+        elsif params[:sector_id] == "none"
+            @shares = Share.where(country_id: params[:country_id])
+            html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
+            render json: {html_string: html_string} 
+        elsif params[:country_id] == "none"
+            @shares = Share.where(sector_id: params[:sector_id])
+            html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
+            render json: {html_string: html_string} 
         else
-            if params[:sector_id] == "0"
-                @shares = Share.where(country_id: params[:country_id])
-                html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
-                render json: {html_string: html_string}
-            elsif params[:country_id] == "0"
-                @shares = Share.where(country_id: params[:country_id])
-                html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
-                render json: {html_string: html_string}
-            else
-                @shares = Share.where(country_id: params[:country_id], sector_id: params[:sector_id])
-                html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
-                render json: {html_string: html_string}
-            end
-            
+            @shares = Share.where(country_id: params[:country_id], sector_id: params[:sector_id])
+            html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
+            render json: {html_string: html_string}
         end
     end
 end

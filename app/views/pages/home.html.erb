@@ -29,14 +29,10 @@
     <%= select_tag :sector,
                     options_from_collection_for_select(@sectors_all, "id", "name"),
                     include_blank: true,
-                    data: { action: "counter#sector" },
+                    data: { action: "counter#country" },
                     class: "form-control select2" %>
      <div class="form-group">
                   <%= label :other, "Plan"%>
-                    <div data-target="counter.wrapper" >
-                    </div>
-                
-                  <%= label :others, "Plan1"%>
                     <div data-target="counter.wrapper" >
                     </div>
                 </div>

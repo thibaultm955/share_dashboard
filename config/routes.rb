@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   
   resources :countries do
     resources :shares
-    get "select_shares", to: "shares#render_select_shares"
+    get "select_shares_sector", to: "shares#render_select_shares_sector"
     resources :sectors do
       resources :shares
       get "select_shares_sector", to: "shares#render_select_shares_sector"
