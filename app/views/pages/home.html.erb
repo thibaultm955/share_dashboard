@@ -19,15 +19,24 @@
                     data: { action: "counter#refresh" },
                     class: "form-control select2" %>
 
-<%= label :shares, "Software"%>
-    <%= select_tag :shares,
+<%= label :country, "Country"%>
+    <%= select_tag :country,
                     options_from_collection_for_select(@countries_all, "id", "name"),
                     include_blank: true,
                     data: { action: "counter#country" },
                     class: "form-control select2" %>
-    <%= f.input :name, collection: ["Belgium", "France", "Norway" ] , data: { action: "counter#countryss"  }%>
+<%= label :sector, "Sector"%>
+    <%= select_tag :sector,
+                    options_from_collection_for_select(@sectors_all, "id", "name"),
+                    include_blank: true,
+                    data: { action: "counter#sector" },
+                    class: "form-control select2" %>
      <div class="form-group">
                   <%= label :other, "Plan"%>
+                    <div data-target="counter.wrapper" >
+                    </div>
+                
+                  <%= label :others, "Plan1"%>
                     <div data-target="counter.wrapper" >
                     </div>
                 </div>
