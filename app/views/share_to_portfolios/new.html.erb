@@ -1,11 +1,28 @@
 <h1>Add a Share to the Portfolio <%=@portfolio.name%></h1>
 
-<%= simple_form_for [@portfolio, @share_to_portfolio] do |f|%>
-  
-  <%= f.input :created_at, label: "Country", collection: @countries %>
-  <%= f.input :updated_at, label: "Sectors", collection: @sectors %>
-  <%= f.input :share_id, label: "Share Name", collection: @share_names %>
-  <%= f.input :price_objective, label: "Add a price objective" %>
-  <%= f.button :submit %>
-<% end %>
+
+<div class="flex-center mt-4" data-controller="counter">
+  <%= simple_form_for [@portfolio, @share_to_portfolio] do |f| %>
+    <%= label :country, "Country"%>
+        <%= select_tag :country,
+                        options_from_collection_for_select(@countries_all, "id", "name"),
+                        include_blank: true,
+                        data: { action: "counter#country" },
+                        class: "form-control select2" %>
+    <%= label :sector, "Sector"%>
+      <%= select_tag :sector,
+                    options_from_collection_for_select(@sectors_all, "id", "name"),
+                    include_blank: true,
+                    data: { action: "counter#country" },
+                    class: "form-control select2" %>
+      <div class="form-group">
+        <%= label :share_to_portfolio, "Share Name"%>
+          <div data-target="counter.wrapper" >
+          </div>
+      </div>
+      <%= f.input :price_objective, label: "Add a price objective" %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
+
 

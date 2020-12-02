@@ -9,37 +9,4 @@
   <button class="btn btn-outline-secondary" data-action="click->other#refresh">Refresh counter</button>
 </div>
 
-<div class="flex-center mt-4" data-controller="counter">
-  <%= simple_form_for @page do |f| %>
-
-    <%= label :shares, "Software"%>
-    <%= select_tag :shares,
-                    options_from_collection_for_select(@shares, "id", "name"),
-                    include_blank: true,
-                    data: { action: "counter#refresh" },
-                    class: "form-control select2" %>
-
-<%= label :country, "Country"%>
-    <%= select_tag :country,
-                    options_from_collection_for_select(@countries_all, "id", "name"),
-                    include_blank: true,
-                    data: { action: "counter#country" },
-                    class: "form-control select2" %>
-<%= label :sector, "Sector"%>
-    <%= select_tag :sector,
-                    options_from_collection_for_select(@sectors_all, "id", "name"),
-                    include_blank: true,
-                    data: { action: "counter#country" },
-                    class: "form-control select2" %>
-     <div class="form-group">
-                  <%= label :other, "Plan"%>
-                    <div data-target="counter.wrapper" >
-                    </div>
-                </div>
-    <div class="counter">
-      <span data-target="counter.count"><%= @restaurant_count %></span>
-    </div>
-    <%= f.button :submit %>
-  <% end %>
-</div>
 

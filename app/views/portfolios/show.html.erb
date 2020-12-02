@@ -20,7 +20,7 @@
             <th scope="row"><%=i%></th>
             <td><%= share[0] %></td>
             <td><%= share[1].share_price %> </td>
-            <td><%= share[1].variation %><%=share[1].currency == "EUR" ? "€" : "NOT DEFINED"%></td>
+            <td><%= share[1].variation %><%=share[1].currency == "EUR" ? "%" : "NOT DEFINED"%></td>
             <td><%=  share[3] %></td>
             <td>  
                 <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE%>
