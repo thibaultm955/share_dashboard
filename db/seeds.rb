@@ -9,6 +9,23 @@
 require 'nokogiri'
 require 'open-uri'
 
+countries = ["Australia", "Belgium", "Finland", "France", "Germany", "Italy", "Luxembourg", "Norway", "Sweden", "Switzerland", "United Kingdom"]
+
+countries.each do |country|
+    if Country.where(:name => country) == []
+        country_created = Country.new(name: country)
+        country_created.save
+    end
+end
+
+sectors = ["Basic Materials", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Energy", "Financial Services", "Healthcare", "Industrials", "Real Estate", "Technology", "Utilities"]
+
+sectors.each do |sector|
+    if Sector.where(:name => sector) == []
+        sector_created = Sector.new(name: sector)
+        sector_created.save
+    end
+end
 
 urls = [
 'https://finance.yahoo.com/quote/TEM1V.HE?p=TEM1V.HE', 'https://finance.yahoo.com/quote/MLMAD.PA?p=MLMAD.PA', 
@@ -150,8 +167,12 @@ urls.each do |url|
             end 
 
             values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url}
-
-            share = Share.new(:name => key, :sector => values[name][:sector], :country => values[name][:country], :currency => values[name][:currency], :mnemonic => values[name][:mnemonic], :market => values[name][:market], :industry => values[name][:industry], :description => values[name][:description])
+            sector = Sector.where(name: values[name][:sector])[0]
+            key = name
+            country = Country.where(name: values[name][:country])[0]
+            share = Share.new(:name => key, :currency => values[name][:currency], :mnemonic => values[name][:mnemonic], :market => values[name][:market], :industry => values[name][:industry], :description => values[name][:description])
+            share.country = country
+            share.sector = sector
             share.save
             share = Share.where(:name => key)[0]
             scrape_url = ScrapeUrl.new(:url => values[name][:url])
