@@ -1,10 +1,17 @@
 class SharesController < ApplicationController
     def index
-        @shares = Share.all
-        respond_to do |format|
-            format.html
-            format.json { render json: { shares: @shares } }
+        if params[:query].present?
+            @shares_index = Share.where("name ILIKE ?", "%#{params[:query]}%")[0..99]
+          else
+            @shares = Share.all
+            respond_to do |format|
+                format.html
+                format.json { render json: { shares: @shares } }
+            end
+            @shares_index = @shares[0..99]
           end
+          
+        
     end
 
 
