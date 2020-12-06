@@ -27,6 +27,7 @@ sectors.each do |sector|
     end
 end
 
+
 urls_old = [
 'https://finance.yahoo.com/quote/TEM1V.HE?p=TEM1V.HE', 'https://finance.yahoo.com/quote/MLMAD.PA?p=MLMAD.PA', 
 'https://finance.yahoo.com/quote/LACR.PA?p=LACR.PA','https://finance.yahoo.com/quote/TEK.L?p=TEK.L',
@@ -79,7 +80,9 @@ date_today = time.strftime("%d/%m/%Y")
 iterator = 0
 
 urls.each do |url|
+    url_0 = url
     url = url[0]
+    puts url
     begin
         doc = Nokogiri::HTML(URI.open(url))
         values = {}
@@ -280,14 +283,38 @@ urls.each do |url|
                 end
             end 
         end
-    rescue Exception
+    rescue OpenURI::HTTPError 
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
         puts " "
         puts "Got an error"
         puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        sleep(100)
         retry
-        sleep(200)
     end
-    sleep(5)
+    sleep(0.01)
 end
 
 

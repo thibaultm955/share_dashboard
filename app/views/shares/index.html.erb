@@ -1,14 +1,28 @@
 <h1> All Shares </h1>
+
 <%= form_tag shares_path, method: :get do %>
   <%= text_field_tag :query,
     params[:query],
     class: "form-control",
     placeholder: "Find a share"
   %>
+  <%= select_tag :sector_id,
+    options_from_collection_for_select(@sectors, "id", "name"),
+    include_blank: true,
+    class: "form-control",
+    placeholder: "Find a share"
+  %>
+  <%= select_tag :country_id,
+    options_from_collection_for_select(@countries, "id", "name"),
+    include_blank: true,
+    class: "form-control",
+    placeholder: "Find a share"
+  %>
+
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
-<table class="table table-hover">
+<table class="table table-hover", id= "table">
   <thead class="thead-light">
     <tr>
       <th scope="col">#</th>
@@ -38,5 +52,8 @@
             </td> 
         </tr>
     <%end%>
+    
   </tbody>
+  
 </table>
+<%= will_paginate @shares_index %>
