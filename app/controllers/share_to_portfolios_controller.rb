@@ -5,25 +5,47 @@ class ShareToPortfoliosController < ApplicationController
     
     
     def new
-        @portfolio = Portfolio.find(params[:portfolio_id])
-        @share_to_portfolio = ShareToPortfolio.new
-        @shares = Share.all
-        @share_names = []
-        @shares.each { |share| @share_names << share.name }
-        
+        # if you add a share from a portfolio
+        if params[:portfolio_id].present?
+            @portfolio = Portfolio.find(params[:portfolio_id])
+            @share_to_portfolio = ShareToPortfolio.new
+            @shares = Share.all
+            @countries_all = Country.all
+            @sectors_all = Sector.all
+           
+        else
+            @porfolios = Portfolio.where(user_id: current_user.id)
+            @share = Share.find(params[:share_id])
+            @share_to_portfolio = ShareToPortfolio.new
+        end
     end
 
     def create
-        @share = Share.where(name: params_share_portfolio[:share_id])[0]
-        @portfolio = Portfolio.find(params[:portfolio_id])
-        @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective])
-        @share_to_portfolio.share = @share
-        @share_to_portfolio.portfolio = @portfolio
-        if @share_to_portfolio.valid?
-            @share_to_portfolio.save
-            redirect_to portfolio_path(@portfolio)
+        if params[:shares].present?
+            @share = Share.find(params_share[:share_id])
+            @portfolio = Portfolio.find(params_portfolio[:portfolio_id])
+            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective])
+            @share_to_portfolio.share = @share
+            @share_to_portfolio.portfolio = @portfolio
+            if @share_to_portfolio.valid?
+                @share_to_portfolio.save
+                redirect_to portfolio_path(@portfolio)
+            else
+                redirect_to new_portfolio_share_to_portfolio_path(@portfolio),  notice: "Share Already in Portfolio"
+            end
         else
-            redirect_to new_portfolio_share_to_portfolio_path(@portfolio),  notice: "Share Already in Portfolio"
+           
+            @share = Share.find(params[:share_id])
+            @portfolio = Portfolio.find(params_portfolio[:portfolio_id])
+            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective])
+            @share_to_portfolio.share = @share
+            @share_to_portfolio.portfolio = @portfolio
+            if @share_to_portfolio.valid?
+                @share_to_portfolio.save
+                redirect_to portfolio_path(@portfolio)
+            else
+                redirect_to new_portfolio_share_to_portfolio_path(@portfolio),  notice: "Share Already in Portfolio"
+            end
         end
     end
 
@@ -52,5 +74,13 @@ class ShareToPortfoliosController < ApplicationController
 
     def params_share_portfolio
         params.require(:share_to_portfolio).permit(:share_id, :price_objective, :portfolio_id, :price_objective)
+    end
+
+    def params_share
+        params.require(:shares).permit(:share_id)
+    end
+    
+    def params_portfolio
+        params.permit(:portfolio_id)
     end
 end

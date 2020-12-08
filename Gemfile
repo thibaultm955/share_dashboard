@@ -65,3 +65,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'nokogiri'
 gem 'open-uri'
+gem 'will_paginate'
+gem "chartkick"

@@ -1,0 +1,59 @@
+<h1> All Shares </h1>
+
+<%= form_tag shares_path, method: :get do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Find a share"
+  %>
+  <%= select_tag :sector_id,
+    options_from_collection_for_select(@sectors, "id", "name"),
+    include_blank: true,
+    class: "form-control",
+    placeholder: "Find a share"
+  %>
+  <%= select_tag :country_id,
+    options_from_collection_for_select(@countries, "id", "name"),
+    include_blank: true,
+    class: "form-control",
+    placeholder: "Find a share"
+  %>
+
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+<table class="table table-hover", id= "table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Country</th>
+      <th scope="col">Sector</th>
+      <th scope="col">Price</th>
+      <th scope="col">Variation</th>
+      
+      <th class="text-center" scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% i = 0 %>
+    <% @shares_index.each do |share| %>
+        <%i += 1%>
+        <tr>
+            <th scope="row"><%=i%></th>
+            <td onclick="location.href='/shares/<%=share.id%>'"><%= share.name %></td>
+            <td><%= share.country.name %> </td>
+            <td><%= share.sector.name %> </td>
+            <td><%= share.share_informations.last.share_price %> </td>
+            <td><%= share.share_informations.last.variation %> %</td>
+
+            <td>  
+                 <%= link_to "Add a share", new_share_share_to_portfolio_path(share.id)%>
+            </td> 
+        </tr>
+    <%end%>
+    
+  </tbody>
+  
+</table>
+<%= will_paginate @shares_index %>
