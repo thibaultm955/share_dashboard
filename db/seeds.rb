@@ -238,6 +238,7 @@ urls.each do |url|
                 end
             end 
         end
+        
     rescue Net::OpenTimeout
         puts " "
         puts " "
@@ -268,7 +269,6 @@ urls.each do |url|
         puts " "
         sleep(100)
         retry
-    end
     rescue OpenURI::HTTPError 
         puts " "
         puts " "
