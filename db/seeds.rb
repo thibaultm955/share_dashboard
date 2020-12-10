@@ -238,6 +238,37 @@ urls.each do |url|
                 end
             end 
         end
+    rescue Net::OpenTimeout
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts "Got an Open Timeout error"
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        sleep(100)
+        retry
+    end
     rescue OpenURI::HTTPError 
         puts " "
         puts " "
@@ -251,7 +282,7 @@ urls.each do |url|
         puts " "
         puts " "
         puts " "
-        puts "Got an error"
+        puts "Got an HTTP error"
         puts " "
         puts " "
         puts " "
