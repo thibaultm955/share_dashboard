@@ -10,7 +10,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-countries = ["Australia", "Belgium", "Finland", "France", "Germany", "Italy", "Luxembourg", "Norway", "Sweden", "Switzerland", "United Kingdom"]
+countries = ["Australia", "Belgium", "Finland", "France", "Germany", "Italy", "Luxembourg", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom"]
 
 countries.each do |country|
     if Country.where(:name => country) == []
@@ -238,7 +238,7 @@ urls.each do |url|
                 end
             end 
         end
-        
+
     rescue Net::OpenTimeout
         puts " "
         puts " "
