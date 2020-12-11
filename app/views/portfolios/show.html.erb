@@ -9,6 +9,7 @@
       <th scope="col">Price</th>
       <th scope="col">Variation</th>
       <th scope="col">Price Objective</th>
+      <th scope="col">PER</th>
       <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
             <td><%= share[1].share_price %> </td>
             <td><%= share[1].variation %> %</td>
             <td><%=  share[3] %></td>
+            <td><%= share[1].pe %> </td>
             <td>  
                 <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE%>
                 <%= link_to "Update Price Objective", edit_portfolio_share_to_portfolio_path(@portfolio, share[2])%>
