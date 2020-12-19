@@ -1,7 +1,7 @@
 class SharesController < ApplicationController
     def index
-        @countries = Country.all
-        @sectors = Sector.all
+        @countries = Country.order("name asc").all
+        @sectors = Sector.order("name asc").all
         if params[:query].present? || params[:sector_id].present? || params[:country_id].present?
             
             sql_query = "name ILIKE :query"
@@ -32,7 +32,7 @@ class SharesController < ApplicationController
 
     def new
         @portfolio = Portfolio.find(params[:portfolio_id])
-        @share = Share.all
+        @share = Share.order("name asc").all
     end
 
     def show
@@ -51,7 +51,7 @@ class SharesController < ApplicationController
 
     def render_select_shares_sector
         if params[:country_id] == "none" && params[:sector_id] == "none"
-            @shares = Share.all
+            @shares = Share.order("name asc").all
             html_string = render_to_string(partial: "select_shares.html.erb", locals: {shares: @shares})
             render json: {html_string: html_string}
         elsif params[:sector_id] == "none"

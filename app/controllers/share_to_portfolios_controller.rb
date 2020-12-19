@@ -9,9 +9,9 @@ class ShareToPortfoliosController < ApplicationController
         if params[:portfolio_id].present?
             @portfolio = Portfolio.find(params[:portfolio_id])
             @share_to_portfolio = ShareToPortfolio.new
-            @shares = Share.all
-            @countries_all = Country.all
-            @sectors_all = Sector.all
+            @shares = Share.order("name asc").all
+            @countries_all = Country.order("name asc").all
+            @sectors_all = Sector.order("name asc").all
            
         else
             @porfolios = Portfolio.where(user_id: current_user.id)
