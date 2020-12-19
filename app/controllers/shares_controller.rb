@@ -17,12 +17,13 @@ class SharesController < ApplicationController
                 @shares_index = Share.paginate(:page => params[:page], :per_page => 100).where(sql_query, query: "%#{params[:query]}%")
             end
           else
-            @shares = Share.all
+            
+            @shares = Share.order("name asc").all
             respond_to do |format|
                 format.html
                 format.json { render json: { shares: @shares } }
             end
-            @shares_index = Share.all.paginate(:page => params[:page], :per_page => 100)
+            @shares_index = Share.order("name asc").all.paginate(:page => params[:page], :per_page => 100)
           end
           @shares_index = @shares_index
           
