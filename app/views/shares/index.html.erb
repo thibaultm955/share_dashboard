@@ -31,7 +31,7 @@
       <th scope="col">Sector</th>
       <th scope="col">Price</th>
       <th scope="col">Variation</th>
-      
+      <th scope="col">PER</th>
       <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -45,8 +45,8 @@
             <td><%= share.country.name %> </td>
             <td><%= share.sector.name %> </td>
             <td><%= share.share_informations.last.share_price %> </td>
-            <td><%= share.share_informations.last.variation %> %</td>
-
+            <td><%= share.share_informations.last.variation %> </td>
+            <td><%= share.share_informations.last.pe%> </td>
             <td>  
                  <%= link_to "Add a share", new_share_share_to_portfolio_path(share.id)%>
             </td> 
