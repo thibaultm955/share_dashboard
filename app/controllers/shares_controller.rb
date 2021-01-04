@@ -3,18 +3,17 @@ class SharesController < ApplicationController
         @countries = Country.order("name asc").all
         @sectors = Sector.order("name asc").all
         if params[:query].present? || params[:sector_id].present? || params[:country_id].present?
-            
             sql_query = "name ILIKE :query"
             if params[:country_id] == "sectors"
-                @shares_index = Share.paginate(:page => params[:page], :per_page => 100).where(sql_query, query: "%#{params[:query]}%")
+                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%")
             elsif params[:sector_id].present? && params[:country_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id], country_id: params[:country_id]).paginate(:page => params[:page], :per_page => 100)
+                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id], country_id: params[:country_id])
             elsif params[:sector_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id]).paginate(:page => params[:page], :per_page => 100)
+                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id])            
             elsif params[:country_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(country_id: params[:country_id]).paginate(:page => params[:page], :per_page => 100)
+                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(country_id: params[:country_id])
             else
-                @shares_index = Share.paginate(:page => params[:page], :per_page => 100).where(sql_query, query: "%#{params[:query]}%")
+                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%")
             end
           else
             
@@ -25,8 +24,15 @@ class SharesController < ApplicationController
             end
             @shares_index = Share.order("name asc").all.paginate(:page => params[:page], :per_page => 100)
           end
-          @shares_index = @shares_index
-          
+        if  (@shares_index.length % 100 > 0 ) 
+            @pages =  @shares_index.length / 100 + 1
+        else
+            @pages =  @shares_index.length / 100
+        end
+        from = ( params[:page].to_i - 1 ) * 100
+        to = from + 99
+        
+        @shares_index = @shares_index[from..to]
     end
 
 
