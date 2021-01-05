@@ -41,7 +41,7 @@ urls.each do |url|
     begin
         doc = Nokogiri::HTML(URI.open(url))
         values = {}
-        name, mnemonic, share_price, variation, currency, market, volume, market_cap, beta, pe, eps, number_of_shares, country, sector, industry, description = "","", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+        name, mnemonic, share_price, variation, currency, market, volume, market_cap, beta, pe, eps, number_of_shares, country, sector, industry, description, dividend, website = "","", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
         if doc.css('h1.D\(ib\)').inner_html == ""
 
         else
@@ -95,6 +95,13 @@ urls.each do |url|
                 doc.css('table.M\(0\):nth-child(1) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > span:nth-child(1)').each do |link|
                     eps = link.content
                 end
+
+                puts "Dividend"
+                doc.css('table.M\(0\):nth-child(1) > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)').each do |link|
+                    dividend = link.content
+                end
+
+                
         
                 # Statistics
                 
@@ -129,7 +136,12 @@ urls.each do |url|
                     description = link.content
                 end 
 
-                values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url}
+                puts "Website"
+                docp.css('a.C\(\$linkColor\):nth-child(6)').each do |link|
+                    website = link.content
+                end
+
+                values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url, :dividend => dividend, :website => website}
                 sector = Sector.where(name: values[name][:sector])[0]
                 key = name
                 country = Country.where(name: values[name][:country])[0]
@@ -141,7 +153,7 @@ urls.each do |url|
                 scrape_url = ScrapeUrl.new(:url => values[name][:url])
                 scrape_url.share = share
                 scrape_url.save
-                share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps])
+                share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps], :dividend => values[name][:dividend], :website => values[name][:website])
                 share_information.share = share
                 share_information.save
             else
@@ -193,6 +205,11 @@ urls.each do |url|
                         eps = link.content
                     end
 
+                    puts "Dividend"
+                    doc.css('table.M\(0\):nth-child(1) > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)').each do |link|
+                        dividend = link.content
+                    end
+
                     # Statistics
                     
                     splitted = url.split("?")
@@ -225,14 +242,21 @@ urls.each do |url|
                     docp.css('p.Mt\(15px\)').each do |link|
                         description = link.content
                     end
-                    values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url}
+
+                    puts "Website"
+                    docp.css('a.C\(\$linkColor\):nth-child(6)').each do |link|
+                        website = link.content
+                    end
+                    
+
+                    values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url, :dividend => dividend, :website => website}
                     puts ""
                     puts values
                     puts ""
                     scrape_url = ScrapeUrl.new(:url => values[name][:url])
                     scrape_url.share = share
                     scrape_url.save
-                    share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps])
+                    share_information = ShareInformation.new(:date => values[name][:date], :share_price => values[name][:share_price], :variation => values[name][:variation], :number_of_shares => values[name][:number_of_shares], :currency => values[name][:currency], :volume => values[name][:volume], :market_cap => values[name][:market_cap], :beta => values[name][:beta], :pe => values[name][:pe], :eps => values[name][:eps], :dividend => values[name][:dividend], :website => values[name][:website])
                     share_information.share = share
                     share_information.save
                 end
