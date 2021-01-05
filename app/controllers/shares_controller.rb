@@ -30,7 +30,7 @@ class SharesController < ApplicationController
             @pages =  @shares_index.length / 100
         end
 
-        if params[:query].present?
+        if params[:page].present?
             from = ( params[:page].to_i - 1 ) * 100
             to = from + 99
         else
