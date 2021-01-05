@@ -58,7 +58,7 @@
 </table>
 <% j = 1%>
 <%while j <= @pages %>
-  <a href="http://localhost:3000/shares?query=<%=params[:query]%>&sector_id=<%=params[:sector_id]%>&country_id=<%=params[:country_id]%>&page=<%=j%>&commit=Search"><%=j%></a>
+  <a href="./shares?query=<%=params[:query]%>&sector_id=<%=params[:sector_id]%>&country_id=<%=params[:country_id]%>&page=<%=j%>&commit=Search"><%=j%></a>
   <% j += 1%>
 <%end%>
   <br/>

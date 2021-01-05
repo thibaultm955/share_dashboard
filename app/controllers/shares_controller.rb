@@ -5,15 +5,15 @@ class SharesController < ApplicationController
         if params[:query].present? || params[:sector_id].present? || params[:country_id].present?
             sql_query = "name ILIKE :query"
             if params[:country_id] == "sectors"
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%")
+                @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%")
             elsif params[:sector_id].present? && params[:country_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id], country_id: params[:country_id])
+                @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id], country_id: params[:country_id])
             elsif params[:sector_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id])            
+                @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%").where(sector_id: params[:sector_id])            
             elsif params[:country_id].present?
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%").where(country_id: params[:country_id])
+                @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%").where(country_id: params[:country_id])
             else
-                @shares_index = Share.where(sql_query, query: "%#{params[:query]}%")
+                @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%")
             end
           else
             
@@ -22,7 +22,7 @@ class SharesController < ApplicationController
                 format.html
                 format.json { render json: { shares: @shares } }
             end
-            @shares_index = Share.order("name asc").all.paginate(:page => params[:page], :per_page => 100)
+            @shares_index = Share.order("name asc").all
           end
         if  (@shares_index.length % 100 > 0 ) 
             @pages =  @shares_index.length / 100 + 1
