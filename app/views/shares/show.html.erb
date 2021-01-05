@@ -1,5 +1,30 @@
-<h1> <%=@share.name%> <%= @share.mnemonic%></h1>
- <%= link_to "Add a share", new_share_share_to_portfolio_path(@share.id)%>
+<h1 class="text-center"> <%=@share.name%> (<%= @share.mnemonic%>)</h1>
+ <%= link_to "+ Add this share to my Portfolio", new_share_share_to_portfolio_path(@share.id)%>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <p>Price: <%=@share_information.share_price%> <%=@share_information.currency%></p>
+    </div>
+    <div class="col">
+      <p>Variation: <%=@share_information.variation%> %</p>
+    </div>
+    <div class="col">
+      <p>Volume: <%=@share_information.volume%></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>Market Cap: <%=@share_information.market_cap%> M <%=@share_information.currency%></p>
+    </div>
+    <div class="col">
+      <p>PER: <%=@share_information.pe%></p>
+    </div>
+  </div>
+</div>
+<%= line_chart [{ name: "Price", data: @share_price_per_day }] %>
+<br/>
+<h2>Information on the Company</h2>
 <ul>
     <li>Sector: <%=@share.sector.name %></li>
     <li>Country: <%=@share.country.name %></li>
@@ -12,4 +37,4 @@
     <li>Price: <%=@share_information.share_price%> <%=@share_information.currency%></li>
 </ul>
 
-<%= line_chart [{ name: "Price", data: @share_price_per_day }] %>
+
