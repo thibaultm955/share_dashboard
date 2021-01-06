@@ -3,7 +3,7 @@ class SharesController < ApplicationController
         @countries = Country.order("name asc").all
         @sectors = Sector.order("name asc").all
         if params[:industry].present? 
-            @shares_index = Share.where(industry: params[:industry])
+            @shares_index = Share.order("name asc").where(industry: params[:industry])
         elsif params[:query].present? || params[:sector_id].present? || params[:country_id].present?
             sql_query = "name ILIKE :query"
             if params[:country_id] == "sectors"
