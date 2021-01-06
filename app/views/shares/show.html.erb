@@ -1,6 +1,6 @@
 <h1 class="text-center"> <%=@share.name%> (<%= @share.mnemonic%>)</h1>
- <%= link_to "+ Add this share to my Portfolio", new_share_share_to_portfolio_path(@share.id)%>
-
+ <p class="text-center"><%= link_to "+ Add this share to my Portfolio", new_share_share_to_portfolio_path(@share.id)%></p>
+<br/>
 <div class="container text-center">
   <div class="row">
     <div class="col">
@@ -20,21 +20,51 @@
     <div class="col">
       <p>PER: <%=@share_information.pe%></p>
     </div>
+    <div class="col">
+      <p>Dividend: <%=@share_information.dividend%></p>
+    </div>
   </div>
 </div>
-<%= line_chart [{ name: "Price", data: @share_price_per_day }] %>
 <br/>
-<h2>Information on the Company</h2>
-<ul>
-    <li>Sector: <%=@share.sector.name %></li>
-    <li>Country: <%=@share.country.name %></li>
-    <li>Market: <%=@share.market %></li>
-    <li>Industry: <%=@share.industry %></li>
-    <li>Description: <%=@share.description %></li>
-    <li>PER: <%=@share_information.pe%></li>
-    <li>Market Cap: <%=@share_information.market_cap%> M <%=@share_information.currency%></li>
-    <li>Volume: <%=@share_information.volume%></li>
-    <li>Price: <%=@share_information.share_price%> <%=@share_information.currency%></li>
-</ul>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+
+    <div class="col-xl">
+      <%= line_chart [{ name: "Price", data: @share_price_per_day }] %>
+    </div>
+
+  </div>
+
+</div>
+<div class="col-sm"></div>
+<br/>
+<h2 class="text-center">Information on the Company</h2>
+<br/>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+     
+      <p>Sector: <a href="../shares?query=&sector_id=<%=@share.sector.id%>&country_id=&commit=Search"><%=@share.sector.name %></a></p>
+    </div>
+    <div class="col">
+      <p>Industry: <a href="../shares?industry=<%=@share.industry%>"><%=@share.industry %></a></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>Country: <a href="../shares?query=&sector_id=&country_id=<%=@share.country.id%>&commit=Search"><%=@share.country.name %></a></p>
+    </div>
+    <div class="col">
+      <p>Market: <%=@share.market %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>Website: <a href="<%=@share_information.website%>"><%=@share_information.website%></a></p>
+    </div>
+  </div>
+</div>
+<p>Description: <%=@share.description %><p>
 
 

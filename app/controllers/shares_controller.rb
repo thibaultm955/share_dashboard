@@ -2,7 +2,9 @@ class SharesController < ApplicationController
     def index
         @countries = Country.order("name asc").all
         @sectors = Sector.order("name asc").all
-        if params[:query].present? || params[:sector_id].present? || params[:country_id].present?
+        if params[:industry].present? 
+            @shares_index = Share.where(industry: params[:industry])
+        elsif params[:query].present? || params[:sector_id].present? || params[:country_id].present?
             sql_query = "name ILIKE :query"
             if params[:country_id] == "sectors"
                 @shares_index = Share.order("name asc").where(sql_query, query: "%#{params[:query]}%")
@@ -39,6 +41,7 @@ class SharesController < ApplicationController
         end
         
         @shares_index = @shares_index[from..to]
+
     end
 
 
@@ -57,7 +60,7 @@ class SharesController < ApplicationController
 
         end
         @share_information = @share.share_informations.last
-        
+       
         
     end
 

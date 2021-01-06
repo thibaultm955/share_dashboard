@@ -1,38 +1,57 @@
-<h1> All Shares </h1>
-
+<h1 class="text-center"> All Shares </h1>
 <%= form_tag shares_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Find a share"
-  %>
-  <%= select_tag :sector_id,
-    options_from_collection_for_select(@sectors, "id", "name"),
-    include_blank: true,
-    class: "form-control",
-    placeholder: "Find a share"
-  %>
-  <%= select_tag :country_id,
-    options_from_collection_for_select(@countries, "id", "name"),
-    include_blank: true,
-    class: "form-control",
-    placeholder: "Find a share"
-  %>
-
-  <%= submit_tag "Search", class: "btn btn-primary" %>
+  <div class="container" style="line-height: 30%;">
+    <div class="row">
+      <div class="col">
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find a share"
+        %>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col">
+        <%= select_tag :sector_id,
+          options_from_collection_for_select(@sectors, "id", "name"),
+          include_blank: true,
+          class: "form-control",
+          placeholder: "Find a share"
+        %>
+      </div>
+      <div class="col">
+        <%= select_tag :country_id,
+          options_from_collection_for_select(@countries, "id", "name"),
+          include_blank: true,
+          class: "form-control",
+          placeholder: "Find a share"
+        %>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col text-center">
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
 <% end %>
+  
+<p style="line-heigh: 30%;"></p>
 
-<table class="table table-hover", id= "table">
+<table class="table table-hover text-center", id= "table">
   <thead class="thead-light">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Country</th>
       <th scope="col">Sector</th>
+      <th scope="col">Industry</th>
       <th scope="col">Price</th>
       <th scope="col">Variation</th>
       <th scope="col">PER</th>
-      <th class="text-center" scope="col">Action</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -41,14 +60,15 @@
         <%i += 1%>
         <tr>
             <th scope="row"><%=i%></th>
-            <td onclick="location.href='/shares/<%=share.id%>'"><%= share.name %></td>
+            <td><a href="/shares/<%=share.id%>"><%= share.name %></a></td>
             <td><%= share.country.name %> </td>
             <td><%= share.sector.name %> </td>
+            <td><%= share.industry %> </td>
             <td><%= share.share_informations.last.share_price %> </td>
             <td><%= share.share_informations.last.variation %> </td>
             <td><%= share.share_informations.last.pe%> </td>
             <td>  
-                 <%= link_to "Add a share", new_share_share_to_portfolio_path(share.id)%>
+                 <%= link_to "Add the share", new_share_share_to_portfolio_path(share.id)%>
             </td> 
         </tr>
     <%end%>
