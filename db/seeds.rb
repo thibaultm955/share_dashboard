@@ -166,7 +166,7 @@ urls.each do |url|
                     share = Share.where(:name => name)[0]
                     puts "share price"
                     doc.css('.Fz\(36px\)').each do |link|
-                    share_price = link.content
+                    share_price = link.content.gsub(",", "")
                     end
 
                     puts "Variation"
