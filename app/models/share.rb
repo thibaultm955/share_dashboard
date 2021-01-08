@@ -4,4 +4,5 @@ class Share < ApplicationRecord
     has_one :scrape_url
     belongs_to :country
     belongs_to :sector
+    belongs_to :industry
 end

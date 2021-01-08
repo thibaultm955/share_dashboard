@@ -10,7 +10,26 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-countries = ["Australia", "Belgium", "Finland", "France", "Germany", "Italy", "Luxembourg", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States"]
+countries = ["Australia", "Belgium", "Czech Republic", "Finland", "France", "Germany", "Italy", "Luxembourg", "Netherland", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States"]
+
+sectors = ["Basic Materials", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Energy", "Financial Services", "Healthcare", "Industrials", "Real Estate", "Technology", "Utilities"]
+
+industries = ["Advertising Agencies", "Aerospace & Defense", "Agricultural Inputs", "Airlines", "Airports & Air Services", "Aluminum", "Apparel Manufacturing", "Apparel Retail", "Asset Management", "Auto & Truck Dealerships", "Auto Manufacturers",
+                "Auto Parts", "Banks—Diversified", "Banks—Regional", "Beverages—Brewers", "Beverages—Non-Alcoholic", "Beverages—Wineries & Distilleries", "Biotechnology", "Broadcasting", "Building Materials", "Building Products & Equipment",
+                "Business Equipment & Supplies", "Capital Markets", "Chemicals", "Coking Coal", "Communication Equipment", "Computer Hardware", "Confectioners", "Conglomerates", "Consulting Services", "Consumer Electronics", "Copper", "Credit Services",
+                "Department Stores", "Diagnostics & Research", "Discount Stores", "Drug Manufacturers—General", "Drug Manufacturers—Specialty & Generic", "Education & Training Services", "Electrical Equipment & Parts", "Electronic Components",
+                "Electronic Gaming & Multimedia", "Electronics & Computer Distribution", "Engineering & Construction", "Entertainment", "Farm & Heavy Construction Machinery", "Farm Products", "Financial Conglomerates", "Financial Data & Stock Exchanges",
+                "Food Distribution", "Footwear & Accessories", "Furnishings, Fixtures & Appliances", "Gambling", "Gold", "Grocery Stores", "Health Information Services", "Healthcare Plans", "Home Improvement Retail", "Household & Personal Products", 
+                "Industrial Distribution", "Information Technology Services", "Infrastructure Operations", "Insurance Brokers", "Insurance—Diversified", "Insurance—Life", "Insurance—Property & Casualty", "Insurance—Reinsurance", "Insurance—Specialty",
+                "Integrated Freight & Logistics", "Internet Content & Information", "Internet Retail", "Leisure", "Lodging", "Lumber & Wood Production", "Luxury Goods", "Marine Shipping", "Medical Care Facilities", "Medical Devices", "Medical Distribution",
+                "Medical Instruments & Supplies", "Metal Fabrication", "Mortgage Finance", "Oil & Gas Drilling", "Oil & Gas E&P", "Oil & Gas Equipment & Services", "Oil & Gas Integrated", "Oil & Gas Midstream", "Oil & Gas Refining & Marketing",
+                "Other Industrial Metals & Mining", "Other Precious Metals & Mining", "Packaged Foods", "Packaging & Containers", "Paper & Paper Products", "Personal Services", "Pharmaceutical Retailers", "Pollution & Treatment Controls", "Publishing",
+                "REIT—Diversified", "REIT—Healthcare Facilities", "REIT—Hotel & Motel", "REIT—Industrial", "REIT—Office", "REIT—Residential", "REIT—Retail", "REIT—Specialty", "Railroads", "Real Estate Services", "Real Estate—Development", "Real Estate—Diversified",
+                "Recreational Vehicles", "Rental & Leasing Services", "Residential Construction", "Resorts & Casinos", "Restaurants", "Scientific & Technical Instruments", "Security & Protection Services", "Semiconductor Equipment & Materials", "Semiconductors",
+                "Shell Companies", "Software—Application", "Software—Infrastructure", "Solar", "Specialty Business Services", "Specialty Chemicals", "Specialty Industrial Machinery", "Specialty Retail", "Staffing & Employment Services", "Steel", "Telecom Services",
+                "Textile Manufacturing", "Thermal Coal", "Tobacco", "Tools & Accessories", "Travel Services", "Utilities—Diversified", "Utilities—Independent Power Producers", "Utilities—Regulated Electric", "Utilities—Regulated Gas", "Utilities—Regulated Water",
+                "Utilities—Renewable", "Waste Management"
+            ]
 
 countries.each do |country|
     if Country.where(:name => country) == []
@@ -19,12 +38,17 @@ countries.each do |country|
     end
 end
 
-sectors = ["Basic Materials", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Energy", "Financial Services", "Healthcare", "Industrials", "Real Estate", "Technology", "Utilities"]
-
 sectors.each do |sector|
     if Sector.where(:name => sector) == []
         sector_created = Sector.new(name: sector)
         sector_created.save
+    end
+end
+
+industries.each do |industry|
+    if Industry.where(:name => industry) == []
+        industry_created = Industry.new(name: industry)
+        industry_created.save
     end
 end
 
@@ -145,10 +169,13 @@ urls.each do |url|
                 sector = Sector.where(name: values[name][:sector])[0]
                 key = name
                 country = Country.where(name: values[name][:country])[0]
-                share = Share.new(:name => key, :currency => values[name][:currency], :mnemonic => values[name][:mnemonic], :market => values[name][:market], :industry => values[name][:industry], :description => values[name][:description])
+                puts (key)
+                industry = Industry.where(name: values[name][:industry])[0]
+                share = Share.new(:name => key, :currency => values[name][:currency], :mnemonic => values[name][:mnemonic], :market => values[name][:market], :description => values[name][:description])
                 share.country = country
                 share.sector = sector
-                share.save
+                share.industry = industry
+                share.save!
                 share = Share.where(:name => key)[0]
                 scrape_url = ScrapeUrl.new(:url => values[name][:url])
                 scrape_url.share = share
