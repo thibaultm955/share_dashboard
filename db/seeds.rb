@@ -177,7 +177,7 @@ urls.each do |url|
                 share.country = country
                 share.sector = sector
                 share.industry = industry
-                share.save!
+                share.save
                 share = Share.where(:name => key)[0]
                 scrape_url = ScrapeUrl.new(:url => values[name][:url])
                 scrape_url.share = share
