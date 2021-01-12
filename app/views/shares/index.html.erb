@@ -13,6 +13,14 @@
     <br/>
     <div class="row">
       <div class="col">
+        <%= select_tag :country_id,
+          options_from_collection_for_select(@countries, "id", "name"),
+          include_blank: true,
+          class: "form-control",
+          placeholder: "Find a share"
+        %>
+      </div>
+      <div class="col">
         <%= select_tag :sector_id,
           options_from_collection_for_select(@sectors, "id", "name"),
           include_blank: true,
@@ -21,8 +29,8 @@
         %>
       </div>
       <div class="col">
-        <%= select_tag :country_id,
-          options_from_collection_for_select(@countries, "id", "name"),
+        <%= select_tag :industry_id,
+          options_from_collection_for_select(@industry, "id", "name"),
           include_blank: true,
           class: "form-control",
           placeholder: "Find a share"
@@ -63,7 +71,7 @@
             <td><a href="/shares/<%=share.id%>"><%= share.name %></a></td>
             <td><%= share.country.name %> </td>
             <td><%= share.sector.name %> </td>
-            <td><%= share.industry %> </td>
+            <td><%= share.industry.name %> </td>
             <td><%= share.share_informations.last.share_price %> </td>
             <td><%= share.share_informations.last.variation %> </td>
             <td><%= share.share_informations.last.pe%> </td>
