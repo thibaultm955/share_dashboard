@@ -1,5 +1,7 @@
-<h1 class="text-center"> <%= @portfolio.name%> </h1>
+<%= render 'shared/navbar_normal' %>
 
+<h1 class="text-center"> <%= @portfolio.name%> </h1>
+<br/>
 
 <table class="table table-hover text-center">
   <thead class="thead-light">
@@ -25,18 +27,16 @@
             <td><%=  share[3] %></td>
             <td><%= share[1].pe %> </td>
             <td>  
-                <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE%>
-                <%= link_to "Update Price Objective", edit_portfolio_share_to_portfolio_path(@portfolio, share[2])%>
+              <%= link_to "Update Price Objective", edit_portfolio_share_to_portfolio_path(@portfolio, share[2]),  class:"btn btn-light"%>
+              <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE, class: "btn btn-danger"%>
             </td> 
         </tr>
     <%end%>
   </tbody>
 </table>
 
-<p> <%= link_to "New Portfolio", new_portfolio_path, class: "nav-link" %> </p>
+<p> <%= link_to "Update name portfolio", edit_portfolio_path(@portfolio), class: "nav-link"%> </p>
 
-<p> <%= link_to "Update name portfolio", edit_portfolio_path(@portfolio)%> </p>
-
-<p> <%= link_to "Add a share", new_portfolio_share_to_portfolio_path(@portfolio)%> </p>
+<!-- <p> <%= link_to "Add a share", new_portfolio_share_to_portfolio_path(@portfolio)%> </p> -->
 
 <%= button_to "Delete the Portfolio", { action: "destroy", id: @portfolio.id }, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>

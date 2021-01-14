@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <%= link_to :root, class: "navbar-brand" do %>
+    <%= image_tag "Logo FT.png" %>
+  <% end %>
+ <p class="text-left">Freya-Shares</p>
+  <div class="mx-auto" >
+    
+  </div>
+
+  <ul class="nav navbar-nav navbar-right">
+    <% if user_signed_in? %>
+      <li class="nav-item active">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "My Portfolios", portfolios_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Shares", shares_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item dropdown">
+        <%= image_tag "dog-1163076_640.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <%= link_to "My Profile", current_user , class: "dropdown-item" %>
+          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+        </div>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      </li>
+    <% end %>
+  </ul>
+
+
+</nav>

@@ -1,8 +1,30 @@
-<h1> Your Portfolio </h1>
-<p>  <%= link_to "New Portfolio", new_portfolio_path, class: "nav-link" %>
+<%= render 'shared/navbar_normal' %>
 
-<ul>
-    <%@portfolios.each do |portfolio|%>
-        <li> <%= link_to portfolio.name, portfolio_path(portfolio)%> </li>
+<h1 class="text-center"> Your Portfolio </h1>
+<p>  <%= link_to "+ Create a New Portfolio", new_portfolio_path, class: "nav-link text-center" %>
+<table class="table table-hover text-center", id= "table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Number Shares</th>
+      <th scope="col">Price Share Below Objective</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% i = 0 %>
+    <% @portfolios.each do |portfolio| %>
+        <% count = 0 %>
+        <% portfolio.share_to_portfolios.each{|s| !s.price_objective.nil? &&  s.price_objective >= ShareInformation.where(share_id: s.share_id)[0].share_price ? count += 1 : 0 } %>
+        <%i += 1%>
+        <tr>
+            <th scope="row"><%=i%></th>
+            <td><%= link_to portfolio.name, portfolio_path(portfolio)%></td>
+            <td><%= portfolio.shares.count %> </td>
+            <td><%= count %> </td>
+        </tr>
     <%end%>
-</ul>
+    
+  </tbody>
+  
+</table>

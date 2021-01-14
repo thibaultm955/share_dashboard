@@ -11,7 +11,7 @@ require 'open-uri'
 require 'csv'
 
 countries = [
-    "Australia", "Belgium", "Czech Republic", "Finland", "France", "Germany", "Italy", "Luxembourg", "Netherlands", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States", "Russia", "Turkey", "Ukraine", "Poland", "Romania", "Kazakhstan", "Greece", "Azerbaijan", "Hungary", "Belarus", "Austria", "Bulgaria", "Serbia", "Denmark", "Slovakia", "Ireland", "Croatia", "Georgia", "Bosnia and Herzegovina", "Armenia", "Albania", "Lithuania", "Moldova", "North Macedonia", "Slovenia", "Latvia", "Kosovo", "Estonia", "Cyprus", "Canada", "Israel", "Bermuda"
+    "Australia", "Belgium", "Czech Republic", "Finland", "France", "Germany", "Italy", "Luxembourg", "Netherlands", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States", "Russia", "Turkey", "Ukraine", "Poland", "Romania", "Kazakhstan", "Greece", "Azerbaijan", "Hungary", "Belarus", "Austria", "Bulgaria", "Serbia", "Denmark", "Slovakia", "Ireland", "Croatia", "Georgia", "Bosnia and Herzegovina", "Armenia", "Albania", "Lithuania", "Moldova", "North Macedonia", "Slovenia", "Latvia", "Kosovo", "Estonia", "Cyprus", "Canada", "Israel", "Brazil"
 ]
 
 sectors = ["Basic Materials", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Energy", "Financial Services", "Healthcare", "Industrials", "Real Estate", "Technology", "Utilities"]
@@ -145,6 +145,7 @@ urls.each do |url|
                 puts "Country"
                 docp.css('p.D\(ib\):nth-child(1)').each do |link|
                     country = link.inner_html.gsub("<!--", "||").gsub("-->", "||").split("||")[-3]
+                    puts country
                 end
         
                 puts "Sector"
@@ -169,6 +170,7 @@ urls.each do |url|
 
                 values[name]  = {:share_price => share_price, :mnemonic => mnemonic, :variation => variation, :currency => currency, :market => market, :volume => volume, :market_cap => market_cap, :beta => beta, :pe => pe, :eps => eps, :number_of_shares => number_of_shares, :country => country, :sector => sector, :industry => industry, :description => description, :date => date_today, :url => url, :dividend => dividend, :website => website}
                 sector = Sector.where(name: values[name][:sector])[0]
+                
                 key = name
                 country = Country.where(name: values[name][:country])[0]
                 puts (key)
@@ -291,7 +293,35 @@ urls.each do |url|
                 end
             end 
         end
-
+    rescue Zlib::BufError
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts "Got a BufError"
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        sleep(100)
     rescue Net::OpenTimeout
         puts " "
         puts " "
