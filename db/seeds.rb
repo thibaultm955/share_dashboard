@@ -54,7 +54,8 @@ industries.each do |industry|
     end
 end
 
-urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
+# urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
+urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
 
 time = Time.now
 date_today = time.strftime("%d/%m/%Y")
@@ -62,7 +63,10 @@ iterator = 0
 
 urls.each do |url|
     url_0 = url
-    url = url[0]
+
+    # url = url[0]
+    url = url[1]
+    
     puts url
     begin
         doc = Nokogiri::HTML(URI.open(url))
