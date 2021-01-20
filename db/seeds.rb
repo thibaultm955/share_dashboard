@@ -53,9 +53,10 @@ industries.each do |industry|
         industry_created.save
     end
 end
-
-# urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
-urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
+# Europe
+urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
+# Nasdaq
+#urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
 
 time = Time.now
 date_today = time.strftime("%d/%m/%Y")
@@ -64,8 +65,10 @@ iterator = 0
 urls.each do |url|
     url_0 = url
 
-    # url = url[0]
-    url = url[1]
+    # Europe
+    url = url[0]
+    # Nasdaq
+    #url = url[1]
     
     puts url
     begin
