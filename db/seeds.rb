@@ -54,9 +54,9 @@ industries.each do |industry|
     end
 end
 # Europe
-# urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
+urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
 # Nasdaq
-urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
+# urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
 
 time = Time.now
 date_today = time.strftime("%d/%m/%Y")
@@ -66,9 +66,9 @@ urls.each do |url|
     url_0 = url
 
     # Europe
-    # url = url[0]
+    url = url[0]
     # Nasdaq
-    url = url[1]
+    # url = url[1]
     
     puts url
     begin
@@ -389,6 +389,35 @@ urls.each do |url|
         puts " "
         sleep(100)
         retry
+    rescue PG::ConnectionBad
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts "Got a BufError"
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        puts " "
+        sleep(100)
     end
     sleep(0.01)
 end
