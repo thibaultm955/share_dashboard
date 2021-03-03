@@ -14,7 +14,7 @@ class PortfoliosController < ApplicationController
         @share_to_portfolio.each do |share_portfolio|
             share = Share.find(share_portfolio.share_id)
             # We want to extract the latest Share Information available in the DB
-            @shares << [share.name, ShareInformation.where(share_id: share_portfolio.share_id)[-1], share_portfolio.id, share_portfolio.price_objective, share.id, !share_portfolio.comment.nil? ? share_portfolio.comment : ""]
+            @shares << [share.name, ShareInformation.where(share_id: share_portfolio.share_id)[-1], share_portfolio.id, share_portfolio.price_objective, share.id, share_portfolio.comment]
             
         end
         @shares = @shares.sort
