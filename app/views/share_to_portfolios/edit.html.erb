@@ -6,6 +6,7 @@
 
 <%= simple_form_for [@portfolio, @share_to_portfolio] do |f|%>
   <%= f.input :price_objective, label: "Update the price objective" %>
+  <%= f.input :comment, label: "Comment:" %>
   <%= f.button :submit %>
 <% end %>
 

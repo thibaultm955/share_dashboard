@@ -40,6 +40,9 @@ class SharesController < ApplicationController
         if params[:page].present?
             from = ( params[:page].to_i - 1 ) * 100
             to = from + 99
+        elsif params[:industry_id].present?
+            from = 0
+            to = 1000
         else
             from = 0
             to = from + 99 

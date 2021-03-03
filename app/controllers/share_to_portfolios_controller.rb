@@ -24,7 +24,7 @@ class ShareToPortfoliosController < ApplicationController
         if params[:shares].present?
             @share = Share.find(params_share[:share_id])
             @portfolio = Portfolio.find(params_portfolio[:portfolio_id])
-            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective])
+            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective], comment: params_share_portfolio[:comment])
             @share_to_portfolio.share = @share
             @share_to_portfolio.portfolio = @portfolio
             if @share_to_portfolio.valid?
@@ -37,7 +37,7 @@ class ShareToPortfoliosController < ApplicationController
            
             @share = Share.find(params[:share_id])
             @portfolio = Portfolio.find(params_portfolio[:portfolio_id])
-            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective])
+            @share_to_portfolio = ShareToPortfolio.new(price_objective: params_share_portfolio[:price_objective], comment: params_share_portfolio[:comment])
             @share_to_portfolio.share = @share
             @share_to_portfolio.portfolio = @portfolio
             if @share_to_portfolio.valid?
@@ -57,7 +57,7 @@ class ShareToPortfoliosController < ApplicationController
 
     def update
         @share_to_portfolio = ShareToPortfolio.find(params[:id])
-        @share_to_portfolio.update(price_objective: params_share_portfolio[:price_objective])
+        @share_to_portfolio.update(price_objective: params_share_portfolio[:price_objective], comment: params_share_portfolio[:comment])
         @portfolio = Portfolio.find(params[:portfolio_id])
         redirect_to portfolio_path(@portfolio)
     end
@@ -73,7 +73,7 @@ class ShareToPortfoliosController < ApplicationController
     private
 
     def params_share_portfolio
-        params.require(:share_to_portfolio).permit(:share_id, :price_objective, :portfolio_id, :price_objective)
+        params.require(:share_to_portfolio).permit(:share_id, :price_objective, :portfolio_id, :price_objective, :comment)
     end
 
     def params_share
