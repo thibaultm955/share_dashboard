@@ -256,7 +256,7 @@ urls.each do |url|
                     splitted = url.split("?")
                     stat_url = splitted[0] + '/key-statistics?' + splitted[1]
                     docs = Nokogiri::HTML(URI.open(stat_url,
-                    "User-Agent" => "Zombies from Space")))
+                    "User-Agent" => "Zombies from Space"))
                     puts "Outstanding shares"
                     docs.css('div.Pstart\(20px\) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2)').each do |link|
                         number_of_shares = link.content
@@ -265,7 +265,7 @@ urls.each do |url|
                     #Profile
                     profile_url = splitted[0] + '/profile?' + splitted[1]
                     docp = Nokogiri::HTML(URI.open(profile_url,
-                    "User-Agent" => "Zombies from Space")))
+                    "User-Agent" => "Zombies from Space"))
                     puts "Country"
                     docp.css('p.D\(ib\):nth-child(1)').each do |link|
                         country = link.inner_html.gsub("<!--", "||").gsub("-->", "||").split("||")[-3]
