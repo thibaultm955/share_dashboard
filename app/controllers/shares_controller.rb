@@ -68,7 +68,7 @@ class SharesController < ApplicationController
 
         end
         @share_information = @share.share_informations.last
-       
+        @share_price_first_january = ShareInformation.where(date: "2021-01-04", share_id: @share.id)
         
     end
 

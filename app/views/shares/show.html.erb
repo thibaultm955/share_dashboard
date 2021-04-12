@@ -15,6 +15,7 @@
         <p>Volume: <%=@share_information.volume%></p>
       </div>
     </div>
+    
     <div class="row">
       <div class="col">
         <p>Market Cap: <%=@share_information.market_cap%> <%=@share_information.currency%></p>
@@ -24,6 +25,11 @@
       </div>
       <div class="col">
         <p>Dividend: <%=@share_information.dividend%></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p>Evolution since January: <%=@share_price_first_january.empty? ? "None" : @share_price_first_january%> </p>
       </div>
     </div>
   </div>

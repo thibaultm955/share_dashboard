@@ -14,7 +14,7 @@
       <th scope="col">Price</th>
       <th scope="col">Variation</th>
       <th scope="col">PER</th>
-      
+      <th scope="col">Evolution 01/2021</th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +30,8 @@
             <td><%= share.share_informations.last.share_price %> </td>
             <td><%= share.share_informations.last.variation %> </td>
             <td><%= share.share_informations.last.pe%> </td>
-            
+            <% share_price_first_january = ShareInformation.where(date: "2021-01-04", share_id: share.id) %>
+            <td><%= share_price_first_january.empty? ? "None" : share_price_first_january %> </td>
         </tr>
     <%end%>
     
