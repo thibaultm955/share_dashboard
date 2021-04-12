@@ -424,7 +424,7 @@ urls.each do |url|
         puts " "
         sleep(100)
     end
-    sleep(5)
+    sleep(0.01)
 end
 
 
