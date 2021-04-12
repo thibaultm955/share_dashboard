@@ -72,7 +72,8 @@ urls.each do |url|
     
     puts url
     begin
-        doc = Nokogiri::HTML(URI.open(url))
+        doc = Nokogiri::HTML(URI.open(url,
+        "User-Agent" => "Zombies from Space"))
         values = {}
         name, mnemonic, share_price, variation, currency, market, volume, market_cap, beta, pe, eps, number_of_shares, country, sector, industry, description, dividend, website = "","", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
         if doc.css('h1.D\(ib\)').inner_html == ""
@@ -140,7 +141,8 @@ urls.each do |url|
                 
                 splitted = url.split("?")
                 stat_url = splitted[0] + '/key-statistics?' + splitted[1]
-                docs = Nokogiri::HTML(URI.open(stat_url))
+                docs = Nokogiri::HTML(URI.open(stat_url,
+                "User-Agent" => "Zombies from Space"))
                 puts "Outstanding shares"
                 docs.css('div.Pstart\(20px\) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2)').each do |link|
                     number_of_shares = link.content
@@ -148,7 +150,8 @@ urls.each do |url|
         
                 #Profile
                 profile_url = splitted[0] + '/profile?' + splitted[1]
-                docp = Nokogiri::HTML(URI.open(profile_url))
+                docp = Nokogiri::HTML(URI.open(profile_url,
+                "User-Agent" => "Zombies from Space"))
                 puts "Country"
                 docp.css('p.D\(ib\):nth-child(1)').each do |link|
                     country = link.inner_html.gsub("<!--", "||").gsub("-->", "||").split("||")[-3]
@@ -419,7 +422,7 @@ urls.each do |url|
         puts " "
         sleep(100)
     end
-    sleep(0.01)
+    sleep(5)
 end
 
 
