@@ -29,7 +29,8 @@
     </div>
     <div class="row">
       <div class="col">
-        <p>Evolution since January: <%=@share_price_first_january.empty? ? "None" : ( @share_information.share_price - @share_price_first_january[0].share_price) / @share_price_first_january[0].share_price%> </p>
+        <% division = share_price_first_january.empty? ? "None" : ( @share_information.share_price - @share_price_first_january[0].share_price) / @share_price_first_january[0].share_price * 100 %>
+        <p>Evolution since January: <%= division != "None" && division < 10000 ? '%.2f' % division : ( division == "None" ? division : "None" ) %> </p>
       </div>
     </div>
   </div>
