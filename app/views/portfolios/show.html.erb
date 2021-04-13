@@ -13,6 +13,7 @@
       <th scope="col">Price Objective</th>
       <th scope="col">Comment</th>
       <th scope="col">PER</th>
+      <th scope="col">Evolution 01/2021</th>
       <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -28,6 +29,9 @@
             <td><%=  share[3] %></td>
             <td><%=  share[5] %></td>
             <td><%= share[1].pe %> </td>
+            <% share_price_first_january = ShareInformation.where(date: "2021-01-04", share_id: share[1].share_id ) %>
+            <% division = share_price_first_january.empty? ? "None" : ( share.share_informations.last.share_price - share_price_first_january[0].share_price ) / share_price_first_january[0].share_price * 100 %>
+            <td><%=division != "None" && division < 10000 ? '%.2f' % division : ( division == "None" ? division : "None" ) %> </td>
             <td>  
               <%= link_to "Update", edit_portfolio_share_to_portfolio_path(@portfolio, share[2]),  class:"btn btn-light"%>
               <%= link_to "Delete a Share", portfolio_share_to_portfolio_path(@portfolio, share[2]) , method: :DELETE, class: "btn btn-danger"%>
