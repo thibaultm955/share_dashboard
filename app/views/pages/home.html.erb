@@ -31,7 +31,7 @@
             <td><%= share.share_informations.last.variation %> </td>
             <td><%= share.share_informations.last.pe%> </td>
             <% share_price_first_january = ShareInformation.where(date: "2021-01-04", share_id: share.id) %>
-            <% division = ( share.share_informations.last.share_price - share_price_first_january[0].share_price) / share_price_first_january[0].share_price * 100 %>
+            <% division = ( share.share_informations.last.share_price - share_price_first_january[0].share_price ) / share_price_first_january[0].share_price * 100 %>
             <td><%=share_price_first_january.empty? ? "None" : (division < 10000 ? '%.2f' % division : "None" ) %> </td>
         </tr>
     <%end%>
