@@ -41,8 +41,9 @@ class PagesController < ApplicationController
         from = ( params[:page].to_i - 1 ) * 100
         to = from + 99
     else
-        from = 0
-        to = from + 99 
+        # Start from 0 as the first line is an empty string
+        from = 1
+        to = from + 98 
     end
     
     @shares_index = @shares_index[from..to]
