@@ -2647,7 +2647,8 @@ Canadian Apartment Properties Real Estate Investment Trust,https://finance.yahoo
 Western Forest Products,https://finance.yahoo.com/quote/WEF.TO?p=WEF.TO&.tsrc=fin-srch
 Kinder Morgan,https://finance.yahoo.com/quote/KMI?p=KMI&.tsrc=fin-srch
 heico,https://finance.yahoo.com/quote/HEI?p=HEI&.tsrc=fin-srch
-peloton,https://finance.yahoo.com/quote/PTON?p=PTON&.tsrc=fin-srch
+peloton,httpMPW,https://finance.yahoo.com/quote/MPW?p=MPW
+s://finance.yahoo.com/quote/PTON?p=PTON&.tsrc=fin-srch
 sea limited,https://finance.yahoo.com/quote/SE?p=SE&.tsrc=fin-srch
 cloudflare,https://finance.yahoo.com/quote/NET?p=NET&.tsrc=fin-srch
 fiverr,https://finance.yahoo.com/quote/FVRR?p=FVRR&.tsrc=fin-srch
@@ -2665,3 +2666,6 @@ inotiv,https://finance.yahoo.com/quote/NOTV?p=NOTV&.tsrc=fin-srch
 farmland partners,https://finance.yahoo.com/quote/FPI?p=FPI&.tsrc=fin-srch
 IIPR,https://finance.yahoo.com/quote/IIPR?p=IIPR&.tsrc=fin-srch
 Williams,https://finance.yahoo.com/quote/WMB?p=WMB&.tsrc=fin-srch
+MPW,https://finance.yahoo.com/quote/MPW?p=MPW&.tsrc=fin-srch
+Berkshire A,https://finance.yahoo.com/quote/BRK-A?p=BRK-A&.tsrc=fin-srch
+Berkshire B,https://finance.yahoo.com/quote/BRK-B?p=BRK-B&.tsrc=fin-srch
