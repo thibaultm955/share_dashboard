@@ -11,7 +11,7 @@ require 'open-uri'
 require 'csv'
 
 countries = [
-    "Australia", "Belgium", "Czech Republic", "Finland", "France", "Germany", "Italy", "Luxembourg", "Netherlands", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States", "Russia", "Turkey", "Ukraine", "Poland", "Romania", "Kazakhstan", "Greece", "Azerbaijan", "Hungary", "Belarus", "Austria", "Bulgaria", "Serbia", "Denmark", "Slovakia", "Ireland", "Croatia", "Georgia", "Bosnia and Herzegovina", "Armenia", "Albania", "Lithuania", "Moldova", "North Macedonia", "Slovenia", "Latvia", "Kosovo", "Estonia", "Cyprus", "Canada", "Israel", "Brazil", "Mexico","Japan","South Africa"
+    "Australia", "Belgium", "Czech Republic", "Finland", "France", "Germany", "Italy", "Luxembourg", "Netherlands", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom", "United States", "Russia", "Turkey", "Ukraine", "Poland", "Romania", "Kazakhstan", "Greece", "Azerbaijan", "Hungary", "Belarus", "Austria", "Bulgaria", "Serbia", "Denmark", "Slovakia", "Ireland", "Croatia", "Georgia", "Bosnia and Herzegovina", "Armenia", "Albania", "Lithuania", "Moldova", "North Macedonia", "Slovenia", "Latvia", "Kosovo", "Estonia", "Cyprus", "Canada", "Israel", "Brazil", "Mexico","Japan","South Africa", "Bangladesh", "India", "Kazakhstan"
 ]
 
 sectors = ["Basic Materials", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Energy", "Financial Services", "Healthcare", "Industrials", "Real Estate", "Technology", "Utilities"]
@@ -54,9 +54,9 @@ industries.each do |industry|
     end
 end
 # Europe
-urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
+# urls = CSV.parse(File.read("cleaned_url.csv"), headers: true)
 # Nasdaq
-# urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
+urls = CSV.parse(File.read("nasdaq_url.csv"), headers: true)
 
 time = Time.now
 date_today = time.strftime("%d/%m/%Y")
@@ -66,9 +66,9 @@ urls.each do |url|
     url_0 = url
 
     # Europe
-    url = url[0]
+    # url = url[0]
     # Nasdaq
-    # url = url[1]
+    url = url[1]
     
     puts url
     begin
