@@ -67,7 +67,7 @@ urls.each do |url|
 
     # Europe
     url = url[0]
-    # Nasdaq
+    # Nasdaq 
     # url = url[1]
     
     puts url
