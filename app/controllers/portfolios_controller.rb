@@ -1,7 +1,7 @@
 class PortfoliosController < ApplicationController
     def index
         @user = current_user
-        @portfolios = @user.portfolios
+        @portfolios = Portfolio.where(user_id: 1)
 
     end
 
