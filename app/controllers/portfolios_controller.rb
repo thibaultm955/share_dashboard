@@ -10,7 +10,11 @@ class PortfoliosController < ApplicationController
         @share_to_portfolio = ShareToPortfolio.where(portfolio_id: @portfolio.id)
         @shares = []
         time = Time.new
-        time = time.strftime("%Y-%m-%d")
+        time_one_week = Time.now - 602000
+        @time_one_week = time_one_week.strftime("%Y-%m-%d")
+        time_one_month = Time.now - 30 * 24 * 60 * 60
+        @time_one_month = time_one_month.strftime("%Y-%m-%d")
+
         @share_to_portfolio.each do |share_portfolio|
             share = Share.find(share_portfolio.share_id)
             # We want to extract the latest Share Information available in the DB
